@@ -1,0 +1,128 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(145deg, #fbfbfd 0%, #f5f5f7 100%);
+}
+
+.container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 3rem 4rem;
+    border-radius: 20px;
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    margin-bottom: 2rem;
+}
+
+.timer {
+    font-size: 7rem;
+    font-weight: 300;
+    letter-spacing: -2px;
+    color: #1d1d1f;
+    margin: 2rem 0;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 100%;
+}
+
+.primary-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+}
+
+.controls button {
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 980px;
+    transition: all 0.2s ease;
+}
+
+.primary-controls button {
+    flex: 1;
+    max-width: 140px;
+}
+
+#toggle-mode {
+    width: 100%;
+    max-width: 296px;  /* This matches the combined width of start/reset + gap */
+    margin: 0 auto;
+}
+
+.mode {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #86868b;
+}
+
+#start {
+    background-color: #0071e3;
+}
+
+#start:hover {
+    background-color: #0077ED;
+    transform: scale(1.02);
+}
+
+#toggle-mode {
+    background-color: #1d1d1f;
+}
+
+#toggle-mode:hover {
+    background-color: #2d2d2f;
+    transform: scale(1.02);
+}
+
+#reset {
+    background-color: #ff3b30;
+}
+
+#reset:hover {
+    background-color: #ff453a;
+    transform: scale(1.02);
+}
+
+/* Add subtle animation for timer changes */
+.timer span {
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem;
+        margin: 1rem;
+        width: 90%;
+    }
+    
+    .timer {
+        font-size: 5rem;
+    }
+    
+    .controls button {
+        margin: 0.5rem;
+        width: 100%;
+    }
+} 
