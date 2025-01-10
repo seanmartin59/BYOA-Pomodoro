@@ -18,6 +18,8 @@ body {
     box-shadow: 
         0 4px 6px -1px rgba(0, 0, 0, 0.1),
         0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    width: 400px;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -112,9 +114,9 @@ h1 {
 
 @media (max-width: 768px) {
     .container {
+        width: 90%;
         padding: 2rem;
         margin: 1rem;
-        width: 90%;
     }
     
     .timer {
@@ -125,4 +127,44 @@ h1 {
         margin: 0.5rem;
         width: 100%;
     }
+} 
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.shake {
+    animation: shake 0.2s ease-in-out;
+}
+
+h1[contenteditable="true"] {
+    cursor: text;
+    transition: all 0.3s ease;
+    outline: none;
+    padding: 0.2rem 0.5rem;
+    margin: -0.2rem -0.5rem 2rem -0.5rem;
+    border-radius: 8px;
+    min-height: 3.5rem;
+    display: -webkit-box;
+    display: flex;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
+    word-wrap: break-word;
+    max-height: 7rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+h1[contenteditable="true"]:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+h1[contenteditable="true"]:focus {
+    background-color: rgba(0, 0, 0, 0.05);
 } 

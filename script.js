@@ -11,6 +11,10 @@ const startButton = document.getElementById('start');
 const toggleModeButton = document.getElementById('toggle-mode');
 const resetButton = document.getElementById('reset');
 const modeText = document.getElementById('mode-text');
+const timerHeader = document.getElementById('timer-header');
+let originalText = timerHeader.textContent;
+
+const MAX_HEADER_LENGTH = 50;
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
@@ -102,9 +106,81 @@ function updateModeText(isPaused = false) {
     document.title = `${timeString} - ${modeString}${pausedText} - Focus Timer`;
 }
 
+function handleHeaderFocus() {
+    if (timerHeader.textContent === 'Focus Timer') {
+        timerHeader.textContent = '';
+    }
+}
+
+function handleHeaderBlur() {
+    if (timerHeader.textContent.trim() === '') {
+        timerHeader.textContent = 'Focus Timer';
+    }
+}
+
+function handleHeaderInput(event) {
+    // Handle Enter key
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        timerHeader.blur();
+        return;
+    }
+    
+    // For regular typing and paste events
+    if (event.inputType) {
+        // If we're already at max length and trying to add more
+        if (timerHeader.textContent.length >= MAX_HEADER_LENGTH && 
+            (event.inputType === 'insertText' || event.inputType === 'insertFromPaste')) {
+            event.preventDefault();
+            
+            // Add shake animation
+            timerHeader.classList.add('shake');
+            setTimeout(() => {
+                timerHeader.classList.remove('shake');
+            }, 200);
+            
+            // Ensure text is not longer than max (as a safeguard)
+            if (timerHeader.textContent.length > MAX_HEADER_LENGTH) {
+                timerHeader.textContent = timerHeader.textContent.substring(0, MAX_HEADER_LENGTH);
+            }
+            return;
+        }
+    }
+    
+    // For keypress events
+    if (event.type === 'keydown' && 
+        timerHeader.textContent.length >= MAX_HEADER_LENGTH && 
+        !event.metaKey && !event.ctrlKey && // Allow shortcuts
+        event.key.length === 1) { // Only block character keys
+        event.preventDefault();
+        
+        // Add shake animation
+        timerHeader.classList.add('shake');
+        setTimeout(() => {
+            timerHeader.classList.remove('shake');
+        }, 200);
+        return;
+    }
+    
+    // Adjust font size based on content length
+    const contentLength = timerHeader.textContent.length;
+    const baseSize = 2.5;
+    
+    if (contentLength > 15) {
+        const newSize = Math.max(1.3, baseSize - (contentLength - 15) * 0.03);
+        timerHeader.style.fontSize = `${newSize}rem`;
+    } else {
+        timerHeader.style.fontSize = `${baseSize}rem`;
+    }
+}
+
 startButton.addEventListener('click', toggleTimer);
 toggleModeButton.addEventListener('click', switchMode);
 resetButton.addEventListener('click', resetTimer);
+timerHeader.addEventListener('focus', handleHeaderFocus);
+timerHeader.addEventListener('blur', handleHeaderBlur);
+timerHeader.addEventListener('input', handleHeaderInput);
+timerHeader.addEventListener('keydown', handleHeaderInput);
 
 // Initialize the display
 resetTimer(); 
